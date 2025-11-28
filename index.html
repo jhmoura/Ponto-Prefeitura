@@ -4,18 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Controle de Ponto</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        h1 { color: #333; }
-        input[type="email"], input[type="password"] { width: calc(100% - 20px); padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
-        button { width: 100%; padding: 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px; transition: background-color 0.3s; }
-        .btn-login { background-color: #007bff; color: white; }
-        .btn-login:hover { background-color: #0056b3; }
-        .error-message { color: red; margin-top: 10px; display: none; }
-        #forgot-password-link { display: block; margin-top: 15px; font-size: 14px; color: #007bff; text-decoration: none; }
-        #forgot-password-link:hover { text-decoration: underline; }
-    </style>
 </head>
 <body>
 
@@ -29,76 +17,12 @@
                 <p id="login-error" class="error-message">E-mail ou senha incorreta.</p>
             </form>
             <a href="#" id="forgot-password-link">Esqueci minha senha</a>
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+            <hr class="separador-horizontal">
         </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 
-    <script>
-        // COLE AQUI A CONFIGURAÇÃO DO SEU FIREBASE
-        const firebaseConfig = {
-            apiKey: "AIzaSyDhww9_LKlvEshuBiuoBVwzyGOzglgbgzw",
-            authDomain: "controle-frequencia-460c8.firebaseapp.com",
-            projectId: "controle-frequencia-460c8",
-            storageBucket: "controle-frequencia-460c8.firebasestorage.app",
-            messagingSenderId: "136216414571",
-            appId: "1:136216414571:web:edc92bf478fcaa6445a42e"
-        };
-
-        // Inicializa o Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Elementos do DOM
-        const loginForm = document.getElementById('login-form');
-        const loginError = document.getElementById('login-error');
-        const forgotPasswordLink = document.getElementById('forgot-password-link');
-
-
-        // Redireciona se o usuário já estiver logado
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                window.location.href = 'ponto.html';
-            }
-        });
-
-        // Lógica de Login
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const senha = document.getElementById('senha').value;
-            loginError.style.display = 'none';
-
-            auth.signInWithEmailAndPassword(email, senha)
-                .then(userCredential => {
-                    // O onAuthStateChanged vai lidar com o redirecionamento
-                })
-                .catch(error => {
-                    console.error("Erro de login:", error);
-                    loginError.style.display = 'block';
-                });
-        });
-
-        // Lógica para "Esqueci minha senha"
-        forgotPasswordLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            if (!email) {
-                alert("Por favor, digite seu e-mail no campo acima.");
-                return;
-            }
-            auth.sendPasswordResetEmail(email)
-                .then(() => {
-                    alert("Link para redefinir sua senha enviado para o seu e-mail.");
-                })
-                .catch((error) => {
-                    console.error("Erro ao enviar e-mail de redefinição:", error);
-                    alert("Não foi possível enviar o e-mail de redefinição.");
-                });
-        });
-        
-    </script>
 </body>
 </html>
